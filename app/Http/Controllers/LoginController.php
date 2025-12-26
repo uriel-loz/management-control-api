@@ -23,15 +23,8 @@ class LoginController extends Controller
 
     public function sessionLogin(LoginRequest $request) : JsonResponse
     {
-        $response = $this->login_service->generateSessionToken($request->validated());
+        $this->login_service->generateSession($request);
 
-        return $this->successResponse($response);
-    }
-
-    public function authorize(PKCERequest $request) : JsonResponse
-    {
-        $response = $this->login_service->processAuthorization($request->all(), $request->session_token);
-        
-        return $this->successResponse($response);
+        return $this->successResponse();
     }
 }
