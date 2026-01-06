@@ -25,6 +25,8 @@ class LoginController extends Controller
     {
         $this->login_service->generateSession($request);
 
-        return $this->successResponse();
+        return $this->successResponse([
+            'user' => auth()->user(),
+        ]);
     }
 }

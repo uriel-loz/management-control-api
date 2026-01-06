@@ -7,4 +7,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('auth/session-login', [LoginController::class, 'sessionLogin']);
+Route::post('auth/login', [LoginController::class, 'sessionLogin']);
