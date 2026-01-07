@@ -23,10 +23,25 @@ class LoginController extends Controller
 
     public function sessionLogin(LoginRequest $request) : JsonResponse
     {
-        $this->login_service->generateSession($request);
+        $response = $this->login_service->generateSession($request);
 
-        return $this->successResponse([
-            'user' => auth()->user(),
-        ]);
+        return $this->successResponse($response);
+    }
+
+    public function logoutSession(Request $request) : void
+    {
+        $this->login_service->destroySession($request);
+    }
+
+    public function createToken(LoginRequest $request) : JsonResponse
+    {
+        $response = $this->login_service->generateToken($request);
+
+        return $this->successResponse($response);
+    }
+
+    public function revokeToken(Request $request) : void
+    {
+        $this->login_service->revokeToken($request);
     }
 }

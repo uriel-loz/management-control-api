@@ -16,6 +16,7 @@ class LoginRequest extends FormRequest
         return [
             'email' => 'required|email',
             'password' => 'required|min:8',
+            'device' => 'required|string',
         ];
     }
 
@@ -26,6 +27,7 @@ class LoginRequest extends FormRequest
             'email.email' => 'El campo email debe ser un email valido.',
             'password.required' => 'El campo password es obligatorio.',
             'password.min' => 'El campo password debe tener al menos 8 caracteres.',
+            'device.required' => 'El campo device es obligatorio.',
         ];
     }
 }
