@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('order_product', function (Blueprint $table) {
-            $table->foreignUuid('order_id');
-            $table->foreignUuid('product_id');
+            $table->foreignUuid('order_id')->constrained();
+            $table->foreignUuid('product_id')->constrained();
         });
 
         Schema::enableForeignKeyConstraints();

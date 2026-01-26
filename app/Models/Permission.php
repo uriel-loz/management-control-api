@@ -42,13 +42,8 @@ class Permission extends Model
         return $this->belongsTo(Module::class);
     }
 
-    public function parentPermission(): BelongsTo
-    {
-        return $this->belongsTo(ParentPermission::class);
-    }
-
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class, 'permission_role', 'permission_id', 'role_id');
     }
 }
