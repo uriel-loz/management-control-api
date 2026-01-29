@@ -11,19 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
-        Schema::create('modules', function (Blueprint $table) {
+        Schema::create('sections', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name', 75);
             $table->string('slug', 75);
             $table->unsignedTinyInteger('order');
-            $table->foreignUuid('section_id')->constrained();
             $table->timestamps();
             $table->softDeletes();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('modules');
+        Schema::dropIfExists('sections');
     }
 };

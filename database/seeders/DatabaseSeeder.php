@@ -16,20 +16,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        $role = Role::create(
-            [
-                'name' => 'Admin',
-            ]
-        );
+        $this->call(SectionsTableSeeder::class);
+        $this->call(ModulesTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
+        $this->call(SetPermissionsSeeder::class);
 
         User::create([
             'name' => 'Admin User',
             'email' => 'admin@manager.com',
             'phone' => '5555555555',
             'password'  => bcrypt('12341234'),
-            'role_id' => $role->id,
+            'role_id' => Role::where('name', 'Admin')->first()->id,
         ]);
     }
 }

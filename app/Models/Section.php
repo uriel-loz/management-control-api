@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Module extends Model
+class Section extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
 
@@ -21,7 +21,6 @@ class Module extends Model
         'name',
         'slug',
         'order',
-        'section_id',
     ];
 
     /**
@@ -36,18 +35,13 @@ class Module extends Model
         ];
     }
 
-    public function permissions(): HasMany
-    {
-        return $this->hasMany(Permission::class);
-    }
-
     /**
-     * Get the section that owns the Module
+     * Get all of the modules for the Section
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function section(): BelongsTo
+    public function modules(): HasMany
     {
-        return $this->belongsTo(Section::class);
+        return $this->hasMany(Module::class);
     }
 }
