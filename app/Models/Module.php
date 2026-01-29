@@ -20,7 +20,6 @@ class Module extends Model
     protected $fillable = [
         'name',
         'slug',
-        'url',
         'order',
         'suborder',
     ];

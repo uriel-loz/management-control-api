@@ -17,7 +17,6 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name', 75);
             $table->string('slug', 75);
-            $table->string('url', 75);
             $table->unsignedTinyInteger('order');
             $table->unsignedTinyInteger('suborder')->nullable();
             $table->timestamps();
