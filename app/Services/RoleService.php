@@ -3,17 +3,17 @@
 namespace App\Services;
 
 use App\Models\Role;
+use Illuminate\Database\Eloquent\Collection;
 
 Class RoleService {
-    public function showAll() : array
+    public function showAll() : Collection
     {
         $roles = Role::with(
             [
                 'permissions:id,name,module_id',
                 'permissions.module:id,name'
             ]
-        )->get()
-        ->toArray();
+        )->get();
 
         return $roles;
     }

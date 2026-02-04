@@ -23,6 +23,10 @@ class Section extends Model
         'order',
     ];
 
+    protected $hidden = [
+        'deleted_at',
+    ];
+
     /**
      * Get the attributes that should be cast.
      *

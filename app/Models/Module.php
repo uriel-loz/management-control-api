@@ -24,6 +24,10 @@ class Module extends Model
         'section_id',
     ];
 
+    protected $hidden = [
+        'deleted_at',
+    ];
+
     /**
      * Get the attributes that should be cast.
      *
