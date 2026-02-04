@@ -17,8 +17,8 @@ class LoginController extends Controller
 
     protected $login_service;
 
-    public function __construct(LoginService $login_service) {
-        $this->login_service = $login_service;
+    public function __construct() {
+        $this->login_service = new LoginService();
     }
 
     public function sessionLogin(LoginRequest $request) : JsonResponse

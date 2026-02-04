@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('permission_role', function (Blueprint $table) {
             $table->foreignUuid('permission_id')->constrained();
             $table->foreignUuid('role_id')->constrained();
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

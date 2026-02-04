@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 
 
@@ -18,6 +19,7 @@ Route::prefix('v1')->group(function () {
 
         Route::prefix('admin')->group(function () {
             Route::apiResource('users', UserController::class);
+            Route::apiResource('roles', RoleController::class);
         });
     });
 });

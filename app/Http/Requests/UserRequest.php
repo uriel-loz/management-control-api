@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
                     ->whereNull('deleted_at'),
             ],
             'password' => 'required|min:8',
-            'role_id' => 'required|string|exists:roles,id',
+            'role_id' => 'required|uuid|exists:roles,id',
         ];
     }
 
@@ -47,7 +47,7 @@ class UserRequest extends FormRequest
             'password.required' => 'El campo password es obligatorio.',
             'password.min' => 'El campo password debe tener al menos 8 caracteres.',
             'role_id.required' => 'El campo rol es obligatorio.',
-            'role_id.string' => 'El campo rol debe ser una cadena de texto.',
+            'role_id.uuid' => 'El campo rol debe ser un UUID válido.',
             'role_id.exists' => 'El rol seleccionado no es válido.',
         ];
     }
