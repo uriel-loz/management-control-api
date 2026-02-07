@@ -16,7 +16,7 @@ Route::prefix('v1')->group(function () {
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('auth/logout', [LoginController::class, 'logoutSession']);
-        Route::delete('auth/token', [LoginController::class, 'revokeToken']);
+        Route::delete('auth/revoke-token', [LoginController::class, 'revokeToken']);
 
         Route::prefix('admin')->group(function () {
             Route::apiResource('users', UserController::class);
