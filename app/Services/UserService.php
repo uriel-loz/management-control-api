@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-Class UserService {
+class UserService {
     public function showAll() : LengthAwarePaginator
     {
         return User::with('role:id,name')

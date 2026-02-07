@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\Collection;
 
-Class RoleService {
+class RoleService {
     public function showAll() : Collection
     {
         $roles = Role::with(
