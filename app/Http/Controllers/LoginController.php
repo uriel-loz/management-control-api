@@ -28,9 +28,11 @@ class LoginController extends Controller
         return $this->successResponse($response);
     }
 
-    public function logoutSession(Request $request) : void
+    public function logoutSession(Request $request) : JsonResponse
     {
         $this->login_service->destroySession($request);
+        
+        return $this->successResponse();
     }
 
     public function createToken(LoginRequest $request) : JsonResponse
@@ -40,8 +42,10 @@ class LoginController extends Controller
         return $this->successResponse($response);
     }
 
-    public function revokeToken(Request $request) : void
+    public function revokeToken(Request $request) : JsonResponse
     {
         $this->login_service->revokeToken($request);
+        
+        return $this->successResponse();
     }
 }
