@@ -36,19 +36,19 @@ class UserRequest extends FormRequest
     public function messages() : array
     {
         return [
-            'name.required' => 'El campo nombre es obligatorio.',
-            'name.string' => 'El campo nombre debe ser una cadena de texto.',
-            'name.max' => 'El campo nombre no debe exceder los 255 caracteres.',
-            'email.required' => 'El campo email es obligatorio.',
-            'email.email' => 'El campo email debe ser un email valido.',
-            'email.unique' => 'El email ya está en uso.',
-            'phone.required' => 'El campo teléfono es obligatorio.',
-            'phone.max' => 'El campo teléfono no debe exceder los 10 caracteres.',
-            'password.required' => 'El campo password es obligatorio.',
-            'password.min' => 'El campo password debe tener al menos 8 caracteres.',
-            'role_id.required' => 'El campo rol es obligatorio.',
-            'role_id.uuid' => 'El campo rol debe ser un UUID válido.',
-            'role_id.exists' => 'El rol seleccionado no es válido.',
+            'name.required' => 'The field name is required',
+            'name.string' => 'The field name must be a string.',
+            'name.max' => 'The field name may not be greater than 255 characters.',
+            'email.required' => 'The field email is required.',
+            'email.email' => 'The field email must be a valid email.',
+            'email.unique' => 'The email has already been taken.',
+            'phone.required' => 'The field phone is required',
+            'phone.max' => 'The field phone may not be greater than 10 characters.',
+            'password.required' => 'The field password is required.',
+            'password.min' => 'The field password must be at least 8 characters.',
+            'role_id.required' => 'The field role is required.',
+            'role_id.uuid' => 'The field role must be a valid UUID.',
+            'role_id.exists' => 'The role selected is invalid.',
         ];
     }
 }

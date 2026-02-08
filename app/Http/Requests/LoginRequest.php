@@ -23,11 +23,11 @@ class LoginRequest extends FormRequest
     public function messages() : array
     {
         return [
-            'email.required' => 'El campo email es obligatorio.',
-            'email.email' => 'El campo email debe ser un email valido.',
-            'password.required' => 'El campo password es obligatorio.',
-            'password.min' => 'El campo password debe tener al menos 8 caracteres.',
-            'device.required' => 'El campo device es obligatorio.',
+            'email.required' => 'The email field is required.',
+            'email.email' => 'The email field must be a valid email.',
+            'password.required' => 'The password field is required.',
+            'password.min' => 'The password field must be at least 8 characters.',
+            'device.required' => 'The device field is required.',
         ];
     }
 }

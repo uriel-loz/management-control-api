@@ -16,7 +16,7 @@ class LoginService {
         $credentials = $request->only('email', 'password');
 
         if (!Auth::attempt($credentials)) 
-            throw new \Exception('Credenciales inválidas', 401);
+            throw new \Exception('Invalid credentials', 401);
         
         $request->session()->regenerate();
 
@@ -38,7 +38,7 @@ class LoginService {
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) 
-            throw new \Exception('Credenciales inválidas', 401);
+            throw new \Exception('Invalid credentials', 401);
 
         return [
             'token' => $user->createToken($request->device)->plainTextToken,

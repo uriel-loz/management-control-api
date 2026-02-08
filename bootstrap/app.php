@@ -51,7 +51,7 @@ return Application::configure(basePath: dirname(__DIR__))
             ];
 
             if ($e instanceof ValidationException) {
-                $payload['message'] = 'Error de validación';
+                $payload['message'] = 'Validation error';
                 $payload['errors'] = $e->errors();
 
                 return response()->json($payload, 422);
@@ -64,8 +64,8 @@ return Application::configure(basePath: dirname(__DIR__))
                 ]);
 
                 $message = $e->getCode() == 23000
-                    ? 'Violación de restricción única o clave foránea'
-                    : 'Error en la base de datos';
+                    ? 'Unique constraint violation or foreign key violation'
+                    : 'Database error';
 
                 $payload['message'] = $message;
 
@@ -73,19 +73,19 @@ return Application::configure(basePath: dirname(__DIR__))
             }
 
             if ($e instanceof ModelNotFoundException || $e instanceof NotFoundHttpException) {
-                $payload['message'] = 'Recurso no encontrado';
+                $payload['message'] = 'Source not found';
 
                 return response()->json($payload, 404);
             }
 
             if ($e instanceof MethodNotAllowedHttpException) {
-                $payload['message'] = 'Método HTTP no permitido';
+                $payload['message'] = 'HTTP method not allowed';
 
                 return response()->json($payload, 405);
             }
 
             if ($e instanceof AuthenticationException) {
-                $payload['message'] = 'No autenticado';
+                $payload['message'] = 'Unauthenticated';
 
                 return response()->json($payload, 401);
             }
@@ -94,7 +94,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 ? $e->getStatusCode()
                 : ($e->getCode() ?: 500);
 
-            $payload['message'] = $e->getMessage() ?: 'Error general';
+            $payload['message'] = $e->getMessage() ?: 'General error';
             $payload['line'] = $e->getLine();
             $payload['file'] = $e->getFile();
 

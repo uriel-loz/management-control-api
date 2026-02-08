@@ -48,4 +48,9 @@ class LoginController extends Controller
         
         return $this->successResponse();
     }
+
+    public function userAuthenticate() : JsonResponse
+    {
+        return $this->successResponse(null, 'User authenticated successfully');
+    }
 }

@@ -20,6 +20,12 @@ class ModuleController extends Controller
 
     public function index(): JsonResponse
     {
+        $modules = $this->module_service->showAll();
+        return $this->successResponse($modules);
+    }
+
+    public function getModulesByUser() : JsonResponse
+    {
         $modules = $this->module_service->showModulesByRole();
         return $this->successResponse($modules);
     }
