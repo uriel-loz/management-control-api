@@ -25,6 +25,7 @@ Route::prefix('v1')->group(function () {
 
             // Modules routes
             Route::get('modules', [ModuleController::class, 'index']);
+            Route::get('modules/user', [ModuleController::class, 'getModulesByUser']);
         });
     });
 });
