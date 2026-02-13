@@ -24,3 +24,5 @@ Homestead.yaml
 Thumbs.db
 draft.yaml
 .blueprint
+opencode.json
+.vscode/mcp.json
