@@ -16,6 +16,9 @@ class PermissionsTableSeeder extends Seeder
     {
         $permissions = [
             [
+                'name'  => 'home.read',
+            ],
+            [
                 'name'  => 'users.create',
             ],
             [

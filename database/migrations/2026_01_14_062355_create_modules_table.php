@@ -17,6 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name', 75);
             $table->string('slug', 75);
+            $table->string('icon', 255)->nullable();
             $table->unsignedTinyInteger('order');
             $table->foreignUuid('section_id')->constrained();
             $table->timestamps();

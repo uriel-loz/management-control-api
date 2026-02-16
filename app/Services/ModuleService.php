@@ -27,7 +27,8 @@ class ModuleService
 
         $modules = Section::with([
             'modules' => function ($query) use ($allow_modules_id) {
-                $query->whereIn('id', $allow_modules_id);
+                $query->whereIn('id', $allow_modules_id)
+                    ->orderBy('order', 'ASC');
             }
         ])
         ->whereHas('modules', function ($query) use ($allow_modules_id) {
