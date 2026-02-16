@@ -30,7 +30,7 @@ class ModulesTableSeeder extends Seeder
             ],
             [
                 'id' => Str::uuid()->toString(),
-                'name'  => 'Users',
+                'name'  => 'Usuarios',
                 'slug'  => 'users',
                 'icon'  => 'groups',
                 'order' => 1,
@@ -46,7 +46,7 @@ class ModulesTableSeeder extends Seeder
             ],
             [
                 'id' => Str::uuid()->toString(),
-                'name'  => 'Notifications',
+                'name'  => 'Notificaciones',
                 'slug'  => 'notifications',
                 'icon'  => 'notifications',
                 'order' => 3,
@@ -54,7 +54,7 @@ class ModulesTableSeeder extends Seeder
             ],
             [
                 'id' => Str::uuid()->toString(),
-                'name'  => 'Products',
+                'name'  => 'Productos',
                 'slug'  => 'products',
                 'icon'  => 'inventory_2',
                 'order' => 1,
@@ -62,7 +62,7 @@ class ModulesTableSeeder extends Seeder
             ],
             [
                 'id' => Str::uuid()->toString(),
-                'name'  => 'Orders',
+                'name'  => 'Ordenes',
                 'slug'  => 'orders',
                 'icon'  => 'orders',
                 'order' => 2,
@@ -70,7 +70,7 @@ class ModulesTableSeeder extends Seeder
             ],
             [
                 'id' => Str::uuid()->toString(),
-                'name'  => 'Sales',
+                'name'  => 'Ventas',
                 'slug'  => 'sales',
                 'icon'  => 'request_quote',
                 'order' => 3,
