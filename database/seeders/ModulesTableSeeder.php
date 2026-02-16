@@ -15,17 +15,17 @@ class ModulesTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $control_panel_section = Section::where('slug', 'control-panel')->first();
+        $home_section = Section::where('slug', 'home')->first();
         $administration_section = Section::where('slug', 'administration')->first();
         $operations_section = Section::where('slug', 'operations')->first();
 
         $modules = [
             [
                 'id' => Str::uuid()->toString(),
-                'name'  => 'Graphics',
-                'slug'  => 'graphics',
+                'name'  => 'Home',
+                'slug'  => 'home',
                 'order' => 1,
-                'section_id' => $control_panel_section->id,
+                'section_id' => $home_section->id,
             ],
             [
                 'id' => Str::uuid()->toString(),

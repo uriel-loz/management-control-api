@@ -17,8 +17,8 @@ class SectionsTableSeeder extends Seeder
         $sections = [
             [
                 'id' => Str::uuid()->toString(),
-                'name'  => 'Control Panel',
-                'slug'  => 'control-panel',
+                'name'  => 'Home',
+                'slug'  => 'home',
                 'order' => 1,
             ],
             [
