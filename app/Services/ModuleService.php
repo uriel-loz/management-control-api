@@ -12,7 +12,8 @@ class ModuleService
         $modules = Section::with([
             'modules' => function ($query) {
                 $query->orderBy('order', 'ASC');
-            }
+            },
+            'modules.permissions'
         ])
         ->orderBy('order', 'ASC')
         ->get();

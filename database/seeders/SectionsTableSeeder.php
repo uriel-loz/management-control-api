@@ -23,13 +23,13 @@ class SectionsTableSeeder extends Seeder
             ],
             [
                 'id' => Str::uuid()->toString(),
-                'name'  => 'Administration',
+                'name'  => 'Administración',
                 'slug'  => 'administration',
                 'order' => 2,
             ],
             [
                 'id' => Str::uuid()->toString(),
-                'name'  => 'Operations',
+                'name'  => 'Operaciones',
                 'slug'  => 'operations',
                 'order' => 3,
             ],

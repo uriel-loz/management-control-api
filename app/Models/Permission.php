@@ -20,6 +20,7 @@ class Permission extends Model
      */
     protected $fillable = [
         'name',
+        'slug',
         'requires_authorization',
         'parent_permission_id',
         'module_id',

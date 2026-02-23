@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name', 75);
+            $table->string('slug', 75);
             $table->unsignedTinyInteger('requires_authorization')->nullable();
             $table->uuid('parent_permission_id')->nullable();
             $table->foreignUuid('module_id')->constrained();

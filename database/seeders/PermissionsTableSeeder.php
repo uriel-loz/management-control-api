@@ -16,92 +16,119 @@ class PermissionsTableSeeder extends Seeder
     {
         $permissions = [
             [
-                'name'  => 'home.read',
+                'name'  =>  'Lectura',
+                'slug'  => 'home.read',
             ],
             [
-                'name'  => 'users.create',
+                'name'  =>  'Creación',
+                'slug'  => 'users.create',
             ],
             [
-                'name'  => 'users.read',
+                'name'  =>  'Lectura',
+                'slug'  => 'users.read',
             ],
             [
-                'name'  => 'users.update',
+                'name'  =>  'Actualización',
+                'slug'  => 'users.update',
             ],
             [
-                'name'  => 'users.delete',
+                'name'  =>  'Eliminación',
+                'slug'  => 'users.delete',
             ],
             [
-                'name'  => 'roles.create',
+                'name'  =>  'Creación',
+                'slug'  => 'roles.create',
             ],
             [
-                'name'  => 'roles.read',
+                'name'  =>  'Lectura',
+                'slug'  => 'roles.read',
             ],
             [
-                'name'  => 'roles.update',
+                'name'  =>  'Actualización',
+                'slug'  => 'roles.update',
             ],
             [
-                'name'  => 'roles.delete',
+                'name'  =>  'Eliminación',
+                'slug'  => 'roles.delete',
             ],
             [
-                'name'  => 'roles.mark_all',
+                'name'  =>  'Marcar todos',
+                'slug'  => 'roles.mark_all',
             ],
             [
-                'name'  => 'roles.unmark_all',
+                'name'  =>  'Desmarcar todos',
+                'slug'  => 'roles.unmark_all',
             ],
             [
-                'name'  => 'notifications.read',
+                'name'  =>  'Lectura',
+                'slug'  => 'notifications.read',
             ],
             [
-                'name'  => 'notifications.mark_seen',
+                'name'  =>  'Marcar como leído',
+                'slug'  => 'notifications.mark_seen',
             ],
             [
-                'name'  => 'notifications.delete',
+                'name'  =>  'Eliminación',
+                'slug'  => 'notifications.delete',
             ],
             [
-                'name'  => 'products.create',
+                'name'  =>  'Creación',
+                'slug'  => 'products.create',
             ],
             [
-                'name'  => 'products.read',
+                'name'  =>  'Lectura',
+                'slug'  => 'products.read',
             ],
             [
-                'name'  => 'products.update',
+                'name'  =>  'Actualización',
+                'slug'  => 'products.update',
             ],
             [
-                'name'  => 'products.delete',
+                'name'  =>  'Eliminación',
+                'slug'  => 'products.delete',
             ],
             [
-                'name'  => 'orders.create',
+                'name'  =>  'Creación',
+                'slug'  => 'orders.create',
             ],
             [
-                'name'  => 'orders.read',
+                'name'  =>  'Lectura',
+                'slug'  => 'orders.read',
             ],
             [
-                'name'  => 'orders.update',
+                'name'  =>  'Actualización',
+                'slug'  => 'orders.update',
             ],
             [
-                'name'  => 'orders.delete',
+                'name'  =>  'Eliminación',
+                'slug'  => 'orders.delete',
             ],
             [
-                'name'  => 'sales.create',
+                'name'  =>  'Creación',
+                'slug'  => 'sales.create',
             ],
             [
-                'name'  => 'sales.read',
+                'name'  =>  'Lectura',
+                'slug'  => 'sales.read',
             ],
             [
-                'name'  => 'sales.update',
+                'name'  =>  'Actualización',
+                'slug'  => 'sales.update',
             ],
             [
-                'name'  => 'sales.delete',
+                'name'  =>  'Eliminación',
+                'slug'  => 'sales.delete',
             ],
         ];
 
         foreach ($permissions as $key => $value) {
-            list($module, $action) = explode('.', $value['name']);
+            list($module, $action) = explode('.', $value['slug']);
 
             $module_record = Module::where('slug', $module)->first();
 
             Permission::create([
                 'name'      => $value['name'],
+                'slug'      => $value['slug'],
                 'module_id' => $module_record->id,
             ]);
         }
