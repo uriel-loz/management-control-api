@@ -11,9 +11,11 @@ class RoleService {
         $roles = Role::with(
             [
                 'permissions:id,name,module_id',
-                'permissions.module:id,name'
+                'permissions.module:id,name',
             ]
-        )->get();
+        )
+        ->withCount('users as quantity_users')
+        ->get();
 
         return $roles;
     }
