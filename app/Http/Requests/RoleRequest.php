@@ -22,7 +22,7 @@ class RoleRequest extends FormRequest
                 Rule::unique('roles', 'name')
                     ->whereNull('deleted_at'),
             ],
-            'modules' => 'required|array|min:1',
+            'modules' => 'nullable|array|min:1',
             'modules.*' => [
                 'uuid',
                 Rule::exists('permissions', 'id')->whereNull('deleted_at'),
@@ -37,7 +37,6 @@ class RoleRequest extends FormRequest
             'role.string' => 'The role must be a string.',
             'role.max' => 'The role may not be greater than 75 characters.',
             'role.unique' => 'The role has already been taken.',
-            'modules.required' => 'The modules field is required.',
             'modules.array' => 'The modules must be an array.',
             'modules.min' => 'The modules must have at least one element.',
             'modules.*.uuid' => 'Each permission must be a valid UUID.',

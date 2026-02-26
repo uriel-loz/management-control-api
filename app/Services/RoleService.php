@@ -20,7 +20,7 @@ class RoleService {
         return $roles;
     }
     
-    public function createOrUpdateRole(array $data) : void
+    public function createOrUpdateRole(array $data) : Role
     {
         $role = null;
 
@@ -34,6 +34,8 @@ class RoleService {
         $modules = $data['modules'] ?? [];
 
         $role->permissions()->sync($modules);
+
+        return $role;
     }
     
     public function deleteRole(string $id) : void

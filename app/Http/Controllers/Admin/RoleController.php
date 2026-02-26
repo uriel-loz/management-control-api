@@ -28,10 +28,10 @@ class RoleController extends Controller
     public function store(RoleRequest $request) : JsonResponse
     {
         $data = $request->validated();
-        $this->role_service->createOrUpdateRole($data);
+        $role = $this->role_service->createOrUpdateRole($data);
 
         return $this->successResponse(
-            null,
+            $role,
             'Role created',
             201
         );
