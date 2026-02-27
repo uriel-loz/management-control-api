@@ -14,6 +14,16 @@ class RoleRequest extends FormRequest
 
     public function rules() : array
     {
+        if ($this->isMethod('PUT') || $this->isMethod('PATCH')) {
+            return [
+                'modules' => 'required|array|min:1',
+                'modules.*' => [
+                    'uuid',
+                    Rule::exists('permissions', 'id')->whereNull('deleted_at'),
+                ],
+            ];
+        }
+
         return [
             'role' => [
                 'required',
@@ -37,6 +47,7 @@ class RoleRequest extends FormRequest
             'role.string' => 'The role must be a string.',
             'role.max' => 'The role may not be greater than 75 characters.',
             'role.unique' => 'The role has already been taken.',
+            'modules.required' => 'The modules are required.',
             'modules.array' => 'The modules must be an array.',
             'modules.min' => 'The modules must have at least one element.',
             'modules.*.uuid' => 'Each permission must be a valid UUID.',

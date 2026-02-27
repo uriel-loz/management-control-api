@@ -26,14 +26,11 @@ class RoleService {
 
         if (isset($data['id'])) {
             $role = Role::find($data['id']);
-            $role->update(['name' => $data['role']]);
+            $modules = $data['modules'] ?? [];
+            $role->permissions()->sync($modules);
         } else {
             $role = Role::create(['name' => $data['role']]);
         }
-
-        $modules = $data['modules'] ?? [];
-
-        $role->permissions()->sync($modules);
 
         return $role;
     }
