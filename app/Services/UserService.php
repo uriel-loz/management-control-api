@@ -28,16 +28,16 @@ class UserService
                 'users.updated_at'
             );
 
-        $filters = request()->input('filter', []);
+        $filters = request()->input('filters', []);
 
-        $columnMap = [
+        $column_map = [
             'name' => 'users.name',
             'email' => 'users.email',
             'phone' => 'users.phone',
             'role' => 'roles.name',
         ];
 
-        $customFilters = [
+        $custom_filters = [
             'type' => function ($query, $value) {
                 $isCustomer = strtolower($value) === 'customer' ? 1 : 0;
                 $query->where('users.is_customer', $isCustomer);
@@ -50,7 +50,7 @@ class UserService
             },
         ];
 
-        $this->applyServerSideFilters($query, $filters, $columnMap, $customFilters);
+        $this->applyServerSideFilters($query, $filters, $column_map, $custom_filters);
 
         return $query->paginate(request()->per_page ?? 10);
     }

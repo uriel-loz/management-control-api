@@ -9,19 +9,19 @@ trait ServerSideFiltersTrait
     protected function applyServerSideFilters(
         Builder $query,
         array $filters,
-        array $columnMap = [],
-        array $customFilters = []
+        array $column_map = [],
+        array $custom_filters = []
     ): Builder {
         foreach ($filters as $key => $value) {
             // Caso 1: Filtro custom (tiene callback)                                                              
-            if (isset($customFilters[$key]) && is_callable($customFilters[$key])) {
-                $customFilters[$key]($query, $value);
+            if (isset($custom_filters[$key]) && is_callable($custom_filters[$key])) {
+                $custom_filters[$key]($query, $value);
                 continue;
             }
 
             // Caso 2: Filtro mapeado (usa el mapeo)                                                               
-            if (isset($columnMap[$key])) {
-                $column = $columnMap[$key];
+            if (isset($column_map[$key])) {
+                $column = $column_map[$key];
                 $query->where($column, 'like', "%$value%");
                 continue;
             }
