@@ -2,15 +2,22 @@
 
 namespace App\Services;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class UserService {
-    public function showAll() : LengthAwarePaginator
+    public function showAll(): LengthAwarePaginator
     {
-        return User::with('role:id,name')
-            ->select('id', 'name', 'email', 'phone', 'is_customer', 
-                'role_id', 'created_at', 'updated_at')
+        return User::leftJoin('roles', 'roles.id', '=', 'users.role_id')
+            ->select(
+                'users.id', 'users.name', 'users.email', 'users.phone',
+                'users.is_customer', 'users.role_id',
+                'roles.name as role',
+                DB::raw('IF(users.is_customer, "Customer", "Admin") as type'),
+                'users.created_at', 'users.updated_at'
+            )
             ->paginate(request()->per_page ?? 10);
     }
 

@@ -55,11 +55,9 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'timestamp',
             'is_customer' => 'boolean',
+            'created_at' => 'datetime:d/m/Y H:i:s',
+            'updated_at' => 'datetime:d/m/Y H:i:s',
         ];
-    }
-
-    protected function serializeDate(DateTimeInterface $date) {
-        return $date->format('Y-m-d H:i:s');
     }
 
     public function orders(): HasMany

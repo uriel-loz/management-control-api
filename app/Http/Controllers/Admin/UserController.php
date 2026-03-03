@@ -23,7 +23,7 @@ class UserController extends Controller
     {
         $response = $this->user_service->showAll();
 
-        return $this->successResponse($response);
+        return response()->json($response);
     }
 
     public function store(UserRequest $request) : JsonResponse
