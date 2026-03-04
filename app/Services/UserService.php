@@ -28,29 +28,8 @@ class UserService
                 'users.updated_at'
             );
 
-        $filters = request()->input('filters', []);
-
-        $column_map = [
-            'name' => 'users.name',
-            'email' => 'users.email',
-            'phone' => 'users.phone',
-            'role' => 'roles.name',
-        ];
-
-        $custom_filters = [
-            'type' => function ($query, $value) {
-                $isCustomer = strtolower($value) === 'customer' ? 1 : 0;
-                $query->where('users.is_customer', $isCustomer);
-            },
-            'created_at' => function ($query, $value) {
-                $query->whereRaw("DATE_FORMAT(users.created_at, '%d/%m/%Y') LIKE ?", ["%$value%"]);
-            },
-            'updated_at' => function ($query, $value) {
-                $query->whereRaw("DATE_FORMAT(users.updated_at, '%d/%m/%Y') LIKE ?", ["%$value%"]);
-            },
-        ];
-
-        $this->applyServerSideFilters($query, $filters, $column_map, $custom_filters);
+        $this->applyServerSideFilters($query, request()->input('filters', []));
+        $this->applyServerSideSort($query, 'users.updated_at', 'desc');
 
         return $query->paginate(request()->per_page ?? 10);
     }
