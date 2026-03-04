@@ -19,7 +19,7 @@ class RoleController extends Controller
 
     public function index(): JsonResponse
     {
-        $roles = $this->role_service->showAll();
+        $roles = $this->roleService->showAll();
         return $this->successResponse($roles);
     }
 

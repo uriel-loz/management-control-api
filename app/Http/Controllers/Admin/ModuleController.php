@@ -17,13 +17,13 @@ class ModuleController extends Controller
 
     public function index(): JsonResponse
     {
-        $modules = $this->module_service->showAll();
+        $modules = $this->moduleService->showAll();
         return $this->successResponse($modules);
     }
 
     public function getModulesByUser(): JsonResponse
     {
-        $modules = $this->module_service->showModulesByRole();
+        $modules = $this->moduleService->showModulesByRole();
         return $this->successResponse($modules);
     }
 }
