@@ -2,17 +2,24 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize(): bool
     {
-        return true;
+        return match($this->method()) {
+            'POST' => $this->user()->can('create', User::class),
+            'PUT', 'PATCH' => $this->user()->can('update', $this->route('user')),
+            'DELETE' => $this->user()->can('delete', $this->route('user')),
+            default => false,
+        };
     }
 
-    public function rules() : array
+    public function rules(): array
     {
         return [
             'name' => 'required|string|max:255',
@@ -28,12 +35,20 @@ class UserRequest extends FormRequest
                 Rule::unique('users')->ignore($this->user)
                     ->whereNull('deleted_at'),
             ],
-            'password' => 'required|min:8',
+            'password' => [
+                'required',
+                Password::min(8)
+                    ->letters()
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()
+                    ->uncompromised(),
+            ],
             'role_id' => 'required|uuid|exists:roles,id',
         ];
     }
 
-    public function messages() : array
+    public function messages(): array
     {
         return [
             'name.required' => 'The field name is required',

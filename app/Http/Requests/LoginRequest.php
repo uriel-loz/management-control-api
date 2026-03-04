@@ -6,12 +6,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class LoginRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function rules() : array
+    public function rules(): array
     {
         return [
             'email' => 'required|email',
@@ -20,7 +20,7 @@ class LoginRequest extends FormRequest
         ];
     }
 
-    public function messages() : array
+    public function messages(): array
     {
         return [
             'email.required' => 'The email field is required.',

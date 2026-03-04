@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\OrderStatus;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -32,6 +33,7 @@ class Order extends BaseModel
     protected function casts(): array
     {
         return [
+            'status' => OrderStatus::class,
             'total_price' => 'decimal:2',
         ];
     }

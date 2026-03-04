@@ -2,14 +2,20 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Role;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RoleRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize(): bool
     {
-        return true;
+        return match($this->method()) {
+            'POST' => $this->user()->can('create', Role::class),
+            'PUT', 'PATCH' => $this->user()->can('update', $this->route('role')),
+            'DELETE' => $this->user()->can('delete', $this->route('role')),
+            default => false,
+        };
     }
 
     public function rules() : array

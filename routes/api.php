@@ -10,8 +10,10 @@ use App\Http\Controllers\Admin\ModuleController;
 
 Route::prefix('v1')->group(function () {
     Route::prefix('auth')->group(function () {
-        Route::post('login', [LoginController::class, 'sessionLogin']);
-        Route::post('token', [LoginController::class, 'createToken']);
+        Route::post('login', [LoginController::class, 'sessionLogin'])
+            ->middleware('throttle:5,1');
+        Route::post('token', [LoginController::class, 'createToken'])
+            ->middleware('throttle:5,1');
     });
 
     Route::middleware('auth:sanctum')->group(function () {

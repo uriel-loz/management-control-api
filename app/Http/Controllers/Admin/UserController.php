@@ -13,22 +13,20 @@ class UserController extends Controller
 {
     use ApiResponseTrait;
 
-    protected $user_service;
+    public function __construct(
+        protected readonly UserService $userService
+    ) {}
 
-    public function __construct() {
-        $this->user_service = new UserService();
+    public function index(): JsonResponse
+    {
+        $users = $this->userService->showAll();
+
+        return response()->json($users);
     }
 
-    public function index() : JsonResponse
+    public function store(UserRequest $request): JsonResponse
     {
-        $response = $this->user_service->showAll();
-
-        return response()->json($response);
-    }
-
-    public function store(UserRequest $request) : JsonResponse
-    {
-        $this->user_service->createOrUpdateUser($request->validated());
+        $this->userService->createOrUpdateUser($request->validated());
 
         return $this->successResponse(
             null,
@@ -37,14 +35,14 @@ class UserController extends Controller
         );
     }
 
-    public function update(User $user, UserRequest $request) : JsonResponse
+    public function update(User $user, UserRequest $request): JsonResponse
     {
         $user_data = array_merge(
             $request->validated(),
             ['id' => $user->id]
         );
 
-        $this->user_service->createOrUpdateUser($user_data);
+        $this->userService->createOrUpdateUser($user_data);
 
         return $this->successResponse(
             null,
@@ -52,9 +50,9 @@ class UserController extends Controller
         );
     }
 
-    public function destroy(User $user) : JsonResponse
+    public function destroy(User $user): JsonResponse
     {
-        $this->user_service->deleteUser($user->id);
+        $this->userService->deleteUser($user->id);
 
         return $this->successResponse(
             null,

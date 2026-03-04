@@ -11,12 +11,9 @@ class ModuleController extends Controller
 {
     use ApiResponseTrait;
 
-    protected $module_service;
-
-    public function __construct()
-    {
-        $this->module_service = new ModuleService();
-    }
+    public function __construct(
+        protected readonly ModuleService $moduleService
+    ) {}
 
     public function index(): JsonResponse
     {
@@ -24,7 +21,7 @@ class ModuleController extends Controller
         return $this->successResponse($modules);
     }
 
-    public function getModulesByUser() : JsonResponse
+    public function getModulesByUser(): JsonResponse
     {
         $modules = $this->module_service->showModulesByRole();
         return $this->successResponse($modules);

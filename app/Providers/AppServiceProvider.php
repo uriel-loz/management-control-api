@@ -2,8 +2,15 @@
 
 namespace App\Providers;
 
+use App\Models\Role;
+use App\Models\User;
+use App\Models\Module;
+use App\Policies\RolePolicy;
+use App\Policies\UserPolicy;
+use App\Policies\ModulePolicy;
 use Carbon\CarbonInterval;
 use Laravel\Passport\Passport;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,6 +28,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Register policies
+        Gate::policy(User::class, UserPolicy::class);
+        Gate::policy(Role::class, RolePolicy::class);
+        Gate::policy(Module::class, ModulePolicy::class);
+
         Passport::authorizationView('auth.oauth-authorize');
         Passport::tokensExpireIn(CarbonInterval::days(15));
         Passport::refreshTokensExpireIn(CarbonInterval::days(30));

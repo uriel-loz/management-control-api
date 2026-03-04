@@ -13,22 +13,20 @@ class RoleController extends Controller
 {
     use ApiResponseTrait;
 
-    protected $role_service;
+    public function __construct(
+        protected readonly RoleService $roleService
+    ) {}
 
-    public function __construct() {
-        $this->role_service = new RoleService();
-    }
-
-    public function index() : JsonResponse
+    public function index(): JsonResponse
     {
         $roles = $this->role_service->showAll();
         return $this->successResponse($roles);
     }
 
-    public function store(RoleRequest $request) : JsonResponse
+    public function store(RoleRequest $request): JsonResponse
     {
         $data = $request->validated();
-        $role = $this->role_service->createOrUpdateRole($data);
+        $role = $this->roleService->createOrUpdateRole($data);
 
         return $this->successResponse(
             $role,
@@ -37,10 +35,10 @@ class RoleController extends Controller
         );
     }
 
-    public function update(RoleRequest $request, Role $role) : JsonResponse
+    public function update(RoleRequest $request, Role $role): JsonResponse
     {
         $data = array_merge($request->validated(), ['id' => $role->id]);
-        $this->role_service->createOrUpdateRole($data);
+        $this->roleService->createOrUpdateRole($data);
 
         return $this->successResponse(
             null,
@@ -49,9 +47,9 @@ class RoleController extends Controller
         );
     }
 
-    public function destroy(Role $role) : JsonResponse
+    public function destroy(Role $role): JsonResponse
     {
-        $this->role_service->deleteRole($role->id);
+        $this->roleService->deleteRole($role->id);
 
         return $this->successResponse(
             null,
