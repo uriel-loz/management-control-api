@@ -28,7 +28,15 @@ class UserService
                 'users.updated_at'
             );
 
-        $this->applyServerSideFilters($query, request()->input('filters', []));
+        $custom_filters = [
+            'users.is_customer' => function ($query, $value) {
+                $is_customer = str_contains('customer', strtolower($value)) ? 1 : 0;
+
+                $query->where('users.is_customer', $is_customer);
+            },
+        ];
+
+        $this->applyServerSideFilters($query, request()->input('filters', []), $custom_filters);
         $this->applyServerSideSort($query, 'users.updated_at', 'desc');
 
         return $query->paginate(request()->per_page ?? 10);

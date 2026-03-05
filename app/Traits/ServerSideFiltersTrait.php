@@ -6,11 +6,19 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait ServerSideFiltersTrait
 {
-    protected function applyServerSideFilters(Builder $query, array $filters): Builder
-    {
+    protected function applyServerSideFilters(
+        Builder $query, 
+        array $filters, 
+        array $custom_filters = []
+    ): Builder {
         foreach ($filters as $column => $value) {
             if (!$value || !preg_match('/^[a-zA-Z_][a-zA-Z0-9_.]*$/', $column)) continue;
-            $query->where($column, 'LIKE', "%$value%");
+
+            if ($custom_filters && isset($custom_filters[$column])) {
+                $custom_filters[$column]($query, $value);
+            } else {
+                $query->where($column, 'LIKE', "%$value%");
+            }
         }
         return $query;
     }
