@@ -35,8 +35,9 @@ class UserRequest extends FormRequest
                 Rule::unique('users')->ignore($this->user)
                     ->whereNull('deleted_at'),
             ],
+            'is_customer' => 'required|boolean',
             'password' => [
-                'required',
+                'nullable',
                 Password::min(8)
                     ->letters()
                     ->mixedCase()
@@ -61,6 +62,8 @@ class UserRequest extends FormRequest
             'phone.max' => 'The field phone may not be greater than 10 characters.',
             'password.required' => 'The field password is required.',
             'password.min' => 'The field password must be at least 8 characters.',
+            'is_customer.required' => 'The field is_customer is required.',
+            'is_customer.boolean' => 'The field is_customer must be a boolean.',
             'role_id.required' => 'The field role is required.',
             'role_id.uuid' => 'The field role must be a valid UUID.',
             'role_id.exists' => 'The role selected is invalid.',
