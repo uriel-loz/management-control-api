@@ -26,4 +26,10 @@ class ModuleController extends Controller
         $modules = $this->moduleService->showModulesByRole();
         return $this->successResponse($modules);
     }
+
+    public function checkAccess(string $module_slug): JsonResponse
+    {
+        $this->moduleService->userHasAccessToModule($module_slug);
+        return $this->successResponse(null, 'Access granted.');
+    }
 }

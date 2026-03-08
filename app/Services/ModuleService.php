@@ -45,10 +45,23 @@ class ModuleService
         });
     }
 
+    public function userHasAccessToModule(string $module_slug): bool
+    {
+        $user = User::with('role.permissions.module')->find(auth()->id());
+
+        $has_access = $user->role->permissions
+            ->filter(fn($permission) => $permission->module?->slug === $module_slug)
+            ->isNotEmpty();
+
+        if (!$has_access) 
+            throw new \Exception('You do not have access to this module.', 403);
+
+        return true;
+    }
+
     public function invalidateCache(): void
     {
         Cache::forget('modules.all');
-        // Invalidar todos los cachés de módulos por rol
         Cache::flush();
     }
 }
