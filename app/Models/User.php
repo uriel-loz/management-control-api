@@ -24,13 +24,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'phone',
-        'email_verified_at',
-        'password',
-        'is_customer',
-        'role_id',
+        "name",
+        "email",
+        "phone",
+        "email_verified_at",
+        "password",
+        "is_customer",
+        "role_id",
     ];
 
     /**
@@ -39,12 +39,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
-        'email_verified_at',
-        'deleted_at',
-        'is_customer',
-        'role_id',
+        "password",
+        "remember_token",
+        "email_verified_at",
+        "deleted_at",
+        "is_customer",
     ];
 
     /**
@@ -55,10 +54,10 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'timestamp',
-            'is_customer' => 'boolean',
-            'created_at' => 'datetime:d/m/Y H:i:s',
-            'updated_at' => 'datetime:d/m/Y H:i:s',
+            "email_verified_at" => "timestamp",
+            "is_customer" => "boolean",
+            "created_at" => "datetime:d/m/Y H:i:s",
+            "updated_at" => "datetime:d/m/Y H:i:s",
         ];
     }
 
@@ -83,7 +82,9 @@ class User extends Authenticatable
     protected function userType(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->is_customer ? UserType::CUSTOMER : UserType::ADMIN,
+            get: fn() => $this->is_customer
+                ? UserType::CUSTOMER
+                : UserType::ADMIN,
         );
     }
 }
