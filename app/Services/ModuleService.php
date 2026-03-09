@@ -29,12 +29,16 @@ class ModuleService
 
         return Cache::remember("modules.by_role.{$userId}", 3600, function() {
             $user = User::with('role.permissions')->find(auth()->id());
+            $allowed_permissions = $user->role->permissions;
             $allow_modules_id = $user->role->permissions->pluck('module_id')->unique();
 
             return Section::with([
                 'modules' => function ($query) use ($allow_modules_id) {
                     $query->whereIn('id', $allow_modules_id)
                         ->orderBy('order', 'ASC');
+                },
+                'modules.permissions' => function ($query) use ($allowed_permissions) {
+                    $query->whereIn('id', $allowed_permissions->pluck('id'));
                 }
             ])
             ->whereHas('modules', function ($query) use ($allow_modules_id) {
@@ -50,7 +54,10 @@ class ModuleService
         $user = User::with('role.permissions.module')->find(auth()->id());
 
         $has_access = $user->role->permissions
-            ->filter(fn($permission) => $permission->module?->slug === $module_slug)
+            ->filter(
+                fn($permission) => $permission->module?->slug === $module_slug && 
+                    str_contains($permission->slug, '.read')
+            )
             ->isNotEmpty();
 
         if (!$has_access) 
