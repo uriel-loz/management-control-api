@@ -1,12 +1,13 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ModuleController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\ModuleController;
-
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PasswordResetController;
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     Route::prefix('auth')->group(function () {
@@ -14,6 +15,8 @@ Route::prefix('v1')->group(function () {
             ->middleware('throttle:5,1');
         Route::post('token', [LoginController::class, 'createToken'])
             ->middleware('throttle:5,1');
+        Route::post('forgot-password', [PasswordResetController::class, 'forgotPassword'])
+            ->middleware('throttle:3,1');
     });
 
     Route::middleware('auth:sanctum')->group(function () {
@@ -29,6 +32,10 @@ Route::prefix('v1')->group(function () {
             Route::get('modules', [ModuleController::class, 'index']);
             Route::get('modules/user', [ModuleController::class, 'getModulesByUser']);
             Route::get('modules/{module_slug}/check-access', [ModuleController::class, 'checkAccess']);
+
+            // Catalog routes
+            Route::apiResource('categories', CategoryController::class);
+            Route::apiResource('products', ProductController::class);
         });
     });
 });

@@ -28,5 +28,13 @@ class DatabaseSeeder extends Seeder
             'password'  => bcrypt('12341234'),
             'role_id' => Role::where('name', 'Admin')->first()->id,
         ]);
+
+        $this->call([
+            CustomerUsersSeeder::class,
+            CategoriesTableSeeder::class,
+            ProductsTableSeeder::class,
+            ImagesTableSeeder::class,
+            OrdersAndPaymentsSeeder::class,
+        ]);
     }
 }

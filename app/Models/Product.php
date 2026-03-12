@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\BaseModel;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends BaseModel
 {
@@ -22,6 +21,10 @@ class Product extends BaseModel
         'price',
         'quantity',
         'description',
+    ];
+
+    protected $hidden = [
+        'pivot',
     ];
 
     /**

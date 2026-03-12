@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -19,6 +18,10 @@ class Category extends BaseModel
         'name',
         'slug',
         'description',
+    ];
+
+    protected $hidden = [
+        'pivot',
     ];
 
     public function products(): BelongsToMany
