@@ -44,32 +44,20 @@ class PermissionsTableSeeder extends Seeder
                 'slug'  => 'roles.read',
             ],
             [
-                'name'  =>  'Actualización',
-                'slug'  => 'roles.update',
-            ],
-            [
-                'name'  =>  'Eliminación',
-                'slug'  => 'roles.delete',
-            ],
-            [
-                'name'  =>  'Marcar todos',
-                'slug'  => 'roles.mark_all',
-            ],
-            [
-                'name'  =>  'Desmarcar todos',
-                'slug'  => 'roles.unmark_all',
+                'name'  =>  'Creación',
+                'slug'  => 'categories.create',
             ],
             [
                 'name'  =>  'Lectura',
-                'slug'  => 'notifications.read',
+                'slug'  => 'categories.read',
             ],
             [
-                'name'  =>  'Marcar como leído',
-                'slug'  => 'notifications.mark_seen',
+                'name'  =>  'Actualización',
+                'slug'  => 'categories.update',
             ],
             [
                 'name'  =>  'Eliminación',
-                'slug'  => 'notifications.delete',
+                'slug'  => 'categories.delete',
             ],
             [
                 'name'  =>  'Creación',
