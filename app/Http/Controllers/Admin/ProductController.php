@@ -21,7 +21,7 @@ class ProductController extends Controller
     {
         $products = $this->productService->showAll();
 
-        return $this->successResponse($products);
+        return response()->json($products);
     }
 
     public function store(ProductRequest $request): JsonResponse
@@ -29,13 +29,6 @@ class ProductController extends Controller
         $product = $this->productService->create($request->validated());
 
         return $this->successResponse($product, 'Product created successfully', 201);
-    }
-
-    public function show(Product $product): JsonResponse
-    {
-        $product = $this->productService->showOne($product);
-
-        return $this->successResponse($product);
     }
 
     public function update(Product $product, ProductRequest $request): JsonResponse

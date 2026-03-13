@@ -21,7 +21,7 @@ class CategoryController extends Controller
     {
         $categories = $this->categoryService->showAll();
 
-        return $this->successResponse($categories);
+        return response()->json($categories);
     }
 
     public function store(CategoryRequest $request): JsonResponse
@@ -29,13 +29,6 @@ class CategoryController extends Controller
         $category = $this->categoryService->create($request->validated());
 
         return $this->successResponse($category, 'Category created successfully', 201);
-    }
-
-    public function show(Category $category): JsonResponse
-    {
-        $category = $this->categoryService->showOne($category);
-
-        return $this->successResponse($category);
     }
 
     public function update(Category $category, CategoryRequest $request): JsonResponse

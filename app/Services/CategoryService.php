@@ -20,18 +20,6 @@ class CategoryService
         return $query->paginate(request()->input('per_page', 10));
     }
 
-    public function showOne(Category $category): Category
-    {
-        return $category->load([
-            'products' => function ($query) {
-                $query->select('products.id', 'products.name', 'products.slug', 'products.price', 'products.quantity')
-                    ->with(['images' => function ($q) {
-                        $q->select('id', 'name', 'path', 'product_id');
-                    }]);
-            },
-        ]);
-    }
-
     public function create(array $data): Category
     {
         return Category::create($data);

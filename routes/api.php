@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\ModuleController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
@@ -36,6 +37,9 @@ Route::prefix('v1')->group(function () {
             // Catalog routes
             Route::apiResource('categories', CategoryController::class);
             Route::apiResource('products', ProductController::class);
+
+            // Image routes
+            Route::post('images', [ImageController::class, 'store']);
         });
     });
 });

@@ -40,14 +40,6 @@ class ProductService
         return $query->paginate(request()->input('per_page', 10));
     }
 
-    public function showOne(Product $product): Product
-    {
-        return $product->load([
-            'categories:id,name,slug',
-            'images:id,name,path,product_id',
-        ]);
-    }
-
     public function create(array $data): Product
     {
         $category_ids = $data['category_ids'];
