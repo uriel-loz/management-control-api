@@ -35,6 +35,7 @@ Route::prefix('v1')->group(function () {
             Route::get('modules/{module_slug}/check-access', [ModuleController::class, 'checkAccess']);
 
             // Catalog routes
+            Route::get('categories/all', [CategoryController::class, 'showAllCategories']);
             Route::apiResource('categories', CategoryController::class);
             Route::apiResource('products', ProductController::class);
 

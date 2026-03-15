@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Category;
 use App\Traits\ServerSideFiltersTrait;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class CategoryService
@@ -18,6 +19,13 @@ class CategoryService
         $this->applyServerSideSort($query, 'updated_at', 'desc');
 
         return $query->paginate(request()->input('per_page', 10));
+    }
+
+    public function all(): Collection
+    {
+        return Category::withCount('products')
+            ->orderBy('updated_at', 'desc')
+            ->get();
     }
 
     public function create(array $data): Category

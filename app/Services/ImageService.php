@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\Image;
 use App\Models\Product;
 use App\Traits\S3StorageTrait;
-use Illuminate\Database\Eloquent\Collection;
 
 class ImageService
 {

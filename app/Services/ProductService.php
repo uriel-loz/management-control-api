@@ -16,17 +16,23 @@ class ProductService
         $query = Product::with([
             'categories:id,name,slug',
         ])
-            ->select(
-                'products.id',
-                'products.name',
-                'products.slug',
-                'products.price',
-                'products.quantity',
-                'products.description',
-                'products.created_at',
-                'products.updated_at',
-                DB::raw('(SELECT path FROM images WHERE images.product_id = products.id AND images.deleted_at IS NULL ORDER BY images.created_at ASC LIMIT 1) as main_image')
-            );
+        ->select(
+            'products.id',
+            'products.name',
+            'products.slug',
+            'products.price',
+            'products.quantity',
+            'products.description',
+            'products.created_at',
+            'products.updated_at',
+            DB::raw('(SELECT url 
+                FROM images 
+                WHERE images.product_id = products.id 
+                AND images.deleted_at IS NULL 
+                ORDER BY images.created_at ASC 
+                LIMIT 1) as main_image'
+            )
+        );
 
         $custom_filters = [
             'price' => function ($query, $value) {
@@ -42,22 +48,26 @@ class ProductService
 
     public function create(array $data): Product
     {
-        $category_ids = $data['category_ids'];
-        unset($data['category_ids']);
+        $categories = $data['categories'];
+        unset($data['categories']);
+
+        $data['slug'] = $this->generateSlug($data['name']);
 
         $product = Product::create($data);
-        $product->categories()->sync($category_ids);
+        $product->categories()->sync($categories);
 
         return $product->load('categories:id,name,slug');
     }
 
     public function update(Product $product, array $data): Product
     {
-        $category_ids = $data['category_ids'];
-        unset($data['category_ids']);
+        $categories = $data['categories'];
+        unset($data['categories']);
+
+        $data['slug'] = $this->generateSlug($data['name']);
 
         $product->update($data);
-        $product->categories()->sync($category_ids);
+        $product->categories()->sync($categories);
 
         return $product->fresh()->load('categories:id,name,slug');
     }
@@ -65,5 +75,24 @@ class ProductService
     public function delete(Product $product): void
     {
         $product->delete();
+    }
+
+    private function generateSlug(string $value): string
+    {
+        return preg_replace(
+            '/\s+/',
+            '-',
+            trim(
+                preg_replace(
+                    '/[^a-z0-9\s-]/',
+                    '',
+                    preg_replace(
+                        '/[\x{0300}-\x{036f}]/u',
+                        '',
+                        mb_strtolower($value, 'UTF-8')
+                    )
+                )
+            )
+        );
     }
 }
