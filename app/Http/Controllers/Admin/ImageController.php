@@ -18,8 +18,8 @@ class ImageController extends Controller
 
     public function store(ImageRequest $request): JsonResponse
     {
-        $images = $this->imageService->upload($request->validated());
+        $this->imageService->upload($request->validated());
 
-        return $this->successResponse($images, 'Imágenes subidas correctamente.', 201);
+        return $this->successResponse(null, 'Imágenes subidas correctamente.', 201);
     }
 }

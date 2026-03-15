@@ -17,6 +17,7 @@ class Image extends BaseModel
      */
     protected $fillable = [
         'name',
+        'url',
         'path',
         'product_id',
     ];

@@ -30,7 +30,7 @@ class ImagesTableSeeder extends Seeder
                 $images[] = [
                     'id'         => Str::uuid()->toString(),
                     'name'       => $product->slug . '-' . $i . '.jpg',
-                    'path'       => 'products/' . $product->slug . '/' . $product->slug . '-' . $i . '.jpg',
+                    'url'       => 'products/' . $product->slug . '/' . $product->slug . '-' . $i . '.jpg',
                     'product_id' => $product->id,
                     'created_at' => $now,
                     'updated_at' => $now,
