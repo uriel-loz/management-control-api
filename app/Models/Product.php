@@ -53,6 +53,7 @@ class Product extends BaseModel
     public function orders(): BelongsToMany
     {
         return $this->belongsToMany(Order::class)
+            ->withPivot('quantity', 'unit_price', 'subtotal')
             ->withTimestamps();
     }
 }

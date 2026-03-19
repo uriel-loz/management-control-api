@@ -99,13 +99,17 @@ class OrdersAndPaymentsSeeder extends Seeder
                     $product = $weighted_pool[$key];
                     if (!in_array($product['id'], $seen_product_ids)) {
                         $seen_product_ids[] = $product['id'];
+                        $product['quantity'] = rand(1, 3);
                         $order_lines[]      = $product;
                     }
                 }
 
                 // Calculate order totals
                 $total_products = count($order_lines);
-                $total_price    = array_sum(array_column($order_lines, 'price'));
+                $total_price    = array_sum(array_map(
+                    fn($line) => $line['price'] * $line['quantity'],
+                    $order_lines
+                ));
 
                 // Create order record
                 $order_id = Str::uuid()->toString();
@@ -122,9 +126,16 @@ class OrdersAndPaymentsSeeder extends Seeder
 
                 // Create order_product pivot records
                 foreach ($order_lines as $product) {
+                    $quantity   = $product['quantity'];
+                    $unit_price = $product['price'];
+                    $subtotal   = $quantity * $unit_price;
+
                     $order_products[] = [
                         'order_id'   => $order_id,
                         'product_id' => $product['id'],
+                        'quantity'   => $quantity,
+                        'unit_price' => number_format($unit_price, 2, '.', ''),
+                        'subtotal'   => number_format($subtotal, 2, '.', ''),
                         'created_at' => $created_at,
                         'updated_at' => $created_at,
                     ];

@@ -19,15 +19,15 @@ class OrderService
             'products:id,name,price',
             'payment:id,status,method,quantity,order_id',
         ])
-            ->select(
-                'orders.id',
-                'orders.status',
-                'orders.total_products',
-                'orders.total_price',
-                'orders.user_id',
-                'orders.created_at',
-                'orders.updated_at'
-            );
+        ->select(
+            'orders.id',
+            'orders.status',
+            'orders.total_products',
+            'orders.total_price',
+            'orders.user_id',
+            'orders.created_at',
+            'orders.updated_at'
+        );
 
         $this->applyServerSideFilters($query, request()->input('filters', []));
         $this->applyServerSideSort($query, 'orders.updated_at', 'desc');
