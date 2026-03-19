@@ -3,21 +3,15 @@
 namespace App\Models;
 
 use App\Enums\OrderStatus;
-use App\Models\BaseModel;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Order extends BaseModel
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'status',
         'total_products',
@@ -25,11 +19,6 @@ class Order extends BaseModel
         'user_id',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -45,7 +34,9 @@ class Order extends BaseModel
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)
+            ->withPivot('quantity', 'unit_price', 'subtotal')
+            ->withTimestamps();
     }
 
     public function payment(): HasOne

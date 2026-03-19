@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\ModuleController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
@@ -38,6 +40,13 @@ Route::prefix('v1')->group(function () {
             Route::get('categories/all', [CategoryController::class, 'showAllCategories']);
             Route::apiResource('categories', CategoryController::class);
             Route::apiResource('products', ProductController::class);
+
+            // Order routes
+            Route::apiResource('orders', OrderController::class)->only(['index', 'show', 'destroy']);
+            Route::patch('orders/{order}/cancel', [OrderController::class, 'cancel']);
+
+            // Payment routes
+            Route::apiResource('payments', PaymentController::class)->only(['index', 'destroy']);
 
             // Image routes
             Route::post('images', [ImageController::class, 'store']);

@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Enums\PaymentMethod;
 use App\Enums\PaymentStatus;
 use App\Models\BaseModel;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
