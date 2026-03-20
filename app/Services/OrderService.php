@@ -40,6 +40,7 @@ class OrderService
         return Order::with([
             'user:id,name,email',
             'products:id,name,price',
+            'products.orders'   => fn($q) => $q->where('id', $id),
             'payment:id,status,method,quantity,order_id',
         ])->findOrFail($id);
     }
