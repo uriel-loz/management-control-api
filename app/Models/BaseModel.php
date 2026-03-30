@@ -10,6 +10,7 @@ abstract class BaseModel extends Model {
     use SoftDeletes, HasUuids;
 
     protected $baseHidden = ['deleted_at'];
+    public $incrementing = false;
 
     protected $baseCasts = [
         'created_at' => 'datetime:d/m/Y H:i:s',

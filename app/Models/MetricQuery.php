@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class MetricQuery extends BaseModel
 {
     use HasFactory;
+    
+    protected $primaryKey = null;
 
     protected $fillable = [
         'token',
