@@ -11,8 +11,7 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('metric_queries', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('token')->unique();
+            $table->uuid('token')->primary();
             $table->text('prompt');
             $table->text('generated_sql');
             $table->string('display_type', 20)->default('table');
