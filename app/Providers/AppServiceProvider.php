@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\MetricQuery;
+use App\Models\Module;
 use App\Models\Role;
 use App\Models\User;
-use App\Models\Module;
+use App\Policies\MetricQueryPolicy;
+use App\Policies\ModulePolicy;
 use App\Policies\RolePolicy;
 use App\Policies\UserPolicy;
-use App\Policies\ModulePolicy;
 use Carbon\CarbonInterval;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Gate;
@@ -32,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(User::class, UserPolicy::class);
         Gate::policy(Role::class, RolePolicy::class);
         Gate::policy(Module::class, ModulePolicy::class);
+        Gate::policy(MetricQuery::class, MetricQueryPolicy::class);
 
         Passport::authorizationView('auth.oauth-authorize');
         Passport::tokensExpireIn(CarbonInterval::days(15));

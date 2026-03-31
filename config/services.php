@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'text_to_sql' => [
+        'url' => env('TEXT_TO_SQL_URL', 'http://localhost:3100'),
+    ],
+
 ];

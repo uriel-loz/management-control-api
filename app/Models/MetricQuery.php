@@ -11,7 +11,7 @@ class MetricQuery extends BaseModel
 {
     use HasFactory;
 
-    protected $primaryKey = token;
+    protected $primaryKey = 'token';
 
     protected $fillable = [
         'token',

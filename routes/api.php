@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MetricQueryController;
 use App\Http\Controllers\PasswordResetController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,9 @@ Route::prefix('v1')->group(function () {
         Route::post('auth/logout', [LoginController::class, 'logoutSession']);
         Route::get('auth/check', [LoginController::class, 'userAuthenticate']);
         Route::delete('auth/revoke-token', [LoginController::class, 'revokeToken']);
+
+        // Metrics routes
+        Route::post('metrics/query', [MetricQueryController::class, 'query']);
 
         Route::prefix('admin')->group(function () {
             Route::apiResource('users', UserController::class);

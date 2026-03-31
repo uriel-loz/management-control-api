@@ -107,6 +107,18 @@ class PermissionsTableSeeder extends Seeder
                 'name'  =>  'Eliminación',
                 'slug'  => 'sales.delete',
             ],
+            [
+                'name'  =>  'Creación',
+                'slug'  => 'metrics.create',
+            ],
+            [
+                'name'  =>  'Lectura',
+                'slug'  => 'metrics.read',
+            ],
+            [
+                'name'  =>  'Eliminación',
+                'slug'  => 'metrics.delete',
+            ],
         ];
 
         foreach ($permissions as $key => $value) {

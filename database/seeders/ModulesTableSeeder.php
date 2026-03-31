@@ -76,6 +76,14 @@ class ModulesTableSeeder extends Seeder
                 'order' => 4,
                 'section_id' => $operations_section->id,
             ],
+            [
+                'id' => Str::uuid()->toString(),
+                'name'  => 'Métricas',
+                'slug'  => 'metrics',
+                'icon'  => 'analytics',
+                'order' => 5,
+                'section_id' => $operations_section->id,
+            ],
         ];
 
         Module::insert($modules);
