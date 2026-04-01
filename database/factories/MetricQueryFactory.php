@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Enums\DisplayType;
 use App\Enums\MetricQuerySource;
 use App\Models\MetricQuery;
 use App\Models\User;
@@ -19,7 +18,7 @@ class MetricQueryFactory extends Factory
             'user_id' => User::factory(),
             'prompt' => fake()->paragraph(),
             'generated_sql' => 'SELECT * FROM orders WHERE created_at > NOW()',
-            'display_type' => fake()->randomElement(DisplayType::cases()),
+            'display_type' => [fake()->randomElement(['table', 'chart', 'metric'])],
             'display_config' => null,
             'source' => fake()->randomElement(MetricQuerySource::cases()),
             'template_id' => null,

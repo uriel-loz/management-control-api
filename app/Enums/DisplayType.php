@@ -8,12 +8,8 @@ enum DisplayType: string
     case CHART = 'chart';
     case METRIC = 'metric';
 
-    public function label(): string
+    public static function values(): array
     {
-        return match($this) {
-            self::TABLE => 'Table',
-            self::CHART => 'Chart',
-            self::METRIC => 'Metric',
-        };
+        return array_column(self::cases(), 'value');
     }
 }

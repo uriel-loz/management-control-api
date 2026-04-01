@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\DisplayType;
 use App\Enums\MetricQuerySource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -33,7 +32,7 @@ class MetricQuery extends BaseModel
     protected function casts(): array
     {
         return [
-            'display_type' => DisplayType::class,
+            'display_type' => 'array',
             'source' => MetricQuerySource::class,
             'display_config' => 'array',
             'is_saved' => 'boolean',

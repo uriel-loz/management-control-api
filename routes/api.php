@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ImageController;
+use App\Http\Controllers\Admin\MetricQueryController;
 use App\Http\Controllers\Admin\ModuleController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentController;
@@ -9,7 +10,6 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\MetricQueryController;
 use App\Http\Controllers\PasswordResetController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,9 +27,6 @@ Route::prefix('v1')->group(function () {
         Route::post('auth/logout', [LoginController::class, 'logoutSession']);
         Route::get('auth/check', [LoginController::class, 'userAuthenticate']);
         Route::delete('auth/revoke-token', [LoginController::class, 'revokeToken']);
-
-        // Metrics routes
-        Route::post('metrics/query', [MetricQueryController::class, 'query']);
 
         Route::prefix('admin')->group(function () {
             Route::apiResource('users', UserController::class);
@@ -54,6 +51,9 @@ Route::prefix('v1')->group(function () {
 
             // Image routes
             Route::post('images', [ImageController::class, 'store']);
+
+            // Metrics routes
+            Route::post('generate/metrics', [MetricQueryController::class, 'query']);
         });
     });
 });

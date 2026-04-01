@@ -23,11 +23,14 @@ class CreateMetricQueryRequest extends FormRequest
     {
         return [
             'prompt' => 'required|string|min:3|max:500',
-            'display_type' => [
+            'display_type' => 'required|array|min:1',
+            'display_type.*' => [
                 'required',
                 'string',
-                Rule::in(['table', 'chart', 'metric'])
+                Rule::in(['table', 'chart', 'metric']),
             ],
+            'display_config' => 'sometimes|array',
+            'display_config.*' => 'sometimes|array',
         ];
     }
 
@@ -42,8 +45,13 @@ class CreateMetricQueryRequest extends FormRequest
             'prompt.min' => 'El campo prompt debe tener al menos 3 caracteres.',
             'prompt.max' => 'El campo prompt no puede superar los 500 caracteres.',
             'display_type.required' => 'El campo display_type es requerido.',
-            'display_type.string' => 'El campo display_type debe ser una cadena de texto.',
-            'display_type.in' => 'El campo display_type debe ser: table, chart o metric.',
+            'display_type.array' => 'El campo display_type debe ser un arreglo.',
+            'display_type.min' => 'Debe seleccionar al menos un tipo de visualización.',
+            'display_type.*.required' => 'Cada tipo de visualización es requerido.',
+            'display_type.*.string' => 'Cada tipo de visualización debe ser una cadena de texto.',
+            'display_type.*.in' => 'Cada tipo de visualización debe ser: table, chart o metric.',
+            'display_config.array' => 'El campo display_config debe ser un arreglo.',
+            'display_config.*.array' => 'Cada configuración de visualización debe ser un arreglo.',
         ];
     }
 }

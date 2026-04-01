@@ -14,7 +14,7 @@ return new class extends Migration
             $table->uuid('token')->primary();
             $table->text('prompt');
             $table->text('generated_sql');
-            $table->string('display_type', 20)->default('table');
+            $table->json('display_type')->nullable();
             $table->json('display_config')->nullable();
             $table->string('source', 20)->default('llm');
             $table->string('template_id', 100)->nullable();
