@@ -17,8 +17,7 @@ class MetricQuery extends BaseModel
         'user_id',
         'prompt',
         'generated_sql',
-        'display_type',
-        'display_config',
+        'structure',
         'source',
         'template_id',
         'is_saved',
@@ -32,9 +31,8 @@ class MetricQuery extends BaseModel
     protected function casts(): array
     {
         return [
-            'display_type' => 'array',
+            'structure' => 'array',
             'source' => MetricQuerySource::class,
-            'display_config' => 'array',
             'is_saved' => 'boolean',
             'is_pinned' => 'boolean',
         ];
