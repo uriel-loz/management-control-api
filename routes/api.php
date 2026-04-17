@@ -54,6 +54,8 @@ Route::prefix('v1')->group(function () {
 
             // Metrics routes
             Route::post('generate/metrics', [MetricQueryController::class, 'query']);
+            Route::get('metrics/saved', [MetricQueryController::class, 'saved']);
+            Route::delete('metrics/{token}', [MetricQueryController::class, 'destroy']);
         });
     });
 });

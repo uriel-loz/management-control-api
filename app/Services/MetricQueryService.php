@@ -52,28 +52,100 @@ class MetricQueryService
             throw new \Exception('No se encontró la consulta generada.', 404);
         }
 
-        // Step 5: Execute the generated SQL
-        $results = DB::select($metricQuery->generated_sql);
+        $metricQuery->update([
+            'display_type' => $displayTypes
+        ]);
 
-        // Convert stdClass objects to arrays
-        $results = array_map(fn ($row) => (array) $row, $results);
-
-        // Step 6: Resolve formatters via factory and apply each
-        $formatters = $this->formatterFactory->resolve($displayTypes);
-
-        $data = [];
-        foreach ($formatters as $formatter) {
-            $config = $displayConfig[$formatter->type()] ?? [];
-            $data[$formatter->type()] = $formatter->format($results, $prompt, $config);
-        }
+        // Step 5–6: Execute SQL and format results
+        $data = $this->executeAndFormat($metricQuery, $displayTypes, $displayConfig);
 
         // Step 7: Return complete response
         return [
-            'token' => $token,
-            'prompt' => $prompt,
+            'token'         => $token,
+            'prompt'        => $prompt,
             'display_types' => $displayTypes,
-            'source' => $microserviceResponse['source'],
-            'data' => $data,
+            'source'        => $microserviceResponse['source'],
+            'data'          => $data,
         ];
+    }
+
+    /**
+     * Get all saved (and/or pinned) metric queries for a user,
+     * re-executing each SQL to build the formatted data payload.
+     *
+     * @param  User  $user
+     * @return array<int, array>
+     *
+     * @throws \Exception
+     */
+    public function getSavedMetrics(User $user): array
+    {
+        $queries = MetricQuery::where('user_id', $user->id)
+            ->where(function ($q) {
+                $q->where('is_saved', true)
+                  ->orWhere('is_pinned', true);
+            })
+            ->orderByDesc('is_pinned')
+            ->orderByDesc('created_at')
+            ->get();
+
+        return $queries->map(function (MetricQuery $metricQuery): array {
+            $displayTypes = $metricQuery->display_type ?? [];
+            $displayConfig = $metricQuery->display_config ?? [];
+
+            return [
+                'token'         => $metricQuery->token,
+                'prompt'        => $metricQuery->prompt,
+                'display_types' => $displayTypes,
+                'source'        => $metricQuery->source,
+                'is_saved'      => $metricQuery->is_saved,
+                'is_pinned'     => $metricQuery->is_pinned,
+                'data'          => $this->executeAndFormat($metricQuery, $displayTypes, $displayConfig),
+            ];
+        })->values()->all();
+    }
+
+    /**
+     * Execute the stored SQL and apply formatters to build the data payload.
+     *
+     * @param  MetricQuery          $metricQuery
+     * @param  array<string>        $displayTypes
+     * @param  array<string, array> $displayConfig
+     * @return array<string, array>
+     */
+    private function executeAndFormat(MetricQuery $metricQuery, array $displayTypes, array $displayConfig): array
+    {
+        $results = DB::select($metricQuery->generated_sql);
+        $results = array_map(fn ($row) => (array) $row, $results);
+
+        $data = [];
+        foreach ($this->formatterFactory->resolve($displayTypes) as $formatter) {
+            $config = $displayConfig[$formatter->type()] ?? [];
+            $data[$formatter->type()] = $formatter->format($results, $metricQuery->prompt, $config);
+        }
+
+        return $data;
+    }
+
+    /**
+     * Soft-delete a metric query that belongs to the given user.
+     *
+     * @param  string  $token
+     * @param  User    $user
+     * @return void
+     *
+     * @throws \Exception
+     */
+    public function deleteMetricQuery(string $token, User $user): void
+    {
+        $metricQuery = MetricQuery::where('token', $token)
+            ->where('user_id', $user->id)
+            ->first();
+
+        if (! $metricQuery) {
+            throw new \Exception('Métrica no encontrada.', 404);
+        }
+
+        $metricQuery->delete();
     }
 }
